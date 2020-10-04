@@ -1,4 +1,4 @@
-package main.java.domain;
+package main.java.inactive;
 
 import java.util.Set;
 import java.util.TreeSet;
