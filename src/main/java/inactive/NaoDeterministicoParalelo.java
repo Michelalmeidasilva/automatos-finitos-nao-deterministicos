@@ -14,22 +14,20 @@ public class NaoDeterministicoParalelo {
   private int [][][] transicao  ;
   private boolean debug;
   public int posicaoAtual = 0;
+  private String alfabeto;
 
-  public NaoDeterministicoParalelo(int [][][] transicao, int[] estadosAceitacao, int estadoInicial ){
+  public NaoDeterministicoParalelo(int [][][] transicao, int[] estadosAceitacao, int estadoInicial , String alfabeto){
     this.aceitacao = estadosAceitacao;
     this.estadoInicial = estadoInicial  ;
     this.transicao = transicao;
+    this.alfabeto = alfabeto;
   };
-  public NaoDeterministicoParalelo(char [][][] transicao, char[] estadosAceitacao, char estadoInicial ){
+  public NaoDeterministicoParalelo(char [][][] transicao, char[] estadosAceitacao, char estadoInicial , String alfabeto){
     IOValidator validator = new IOValidator();
     this.aceitacao = validator.convertArrayCharToArrayInt(estadosAceitacao);
     this.estadoInicial = estadoInicial;
-    this.transicao = validator.convertMatriz3DCharToInt(transicao, debug) ;
-  };
-  public NaoDeterministicoParalelo(int [][][] transicao, int[] estadosAceitacao ){
-    this.aceitacao = estadosAceitacao;
-    this.estadoInicial = 0 ;
-    this.transicao = transicao;
+    this.alfabeto = alfabeto;
+    this.transicao = validator.convertMatrizCharToInt(transicao, debug) ;
   };
 
   public boolean execucao(String fitaDeEntrada)   {

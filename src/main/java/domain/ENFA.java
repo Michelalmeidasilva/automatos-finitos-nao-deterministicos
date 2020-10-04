@@ -1,5 +1,8 @@
 package main.java.domain;
 
+import main.java.exceptions.IsNotBelongOnLanguage;
+import main.java.utils.IOValidator;
+
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -11,41 +14,66 @@ public class ENFA {
     private int[][][] transicao;
     private int[][] transicaoVazia;
     private String mapeamentoEntrada;
+    private String fitaDeEntrada;
 
-    public ENFA(int[] aceitacao, int estadoInicial, int [][][] transicao, int [][] transicaoVazia ,  String mapeamentoEntrada,boolean debug ) {
+    /**
+     * Construtor padrão passando todos os parametros para um automato finito nao deterministico com transição espontanea
+     * @param aceitacao
+     * @param estadoInicial
+     * @param transicao
+     * @param transicaoVazia
+     * @param mapeamentoEntrada
+     */
+    public ENFA(int[] aceitacao, int estadoInicial, int [][][] transicao, int [][] transicaoVazia ,  String mapeamentoEntrada ) {
         this.aceitacao = aceitacao;
         this.estadoInicial = estadoInicial;
         this.transicao= transicao;
         this.transicaoVazia = transicaoVazia;
         this.mapeamentoEntrada = mapeamentoEntrada;
-        this.debug = true;
     }
 
-    public boolean executar(String entrada) {
-        System.out.println("---------------");
-        System.out.println(mapeamentoEntrada);
-        System.out.println("---------------");
+    /**
+     *  Construtor com conversão de matriz int para char para um automato nao deterministico com transição espontanea
+     * @param aceitacao
+     * @param estadoInicial
+     * @param transicao
+     * @param transicaoVazia
+     * @param mapeamentoEntrada
+     */
+    public ENFA(char[] aceitacao, char estadoInicial, char [][][] transicao, char [][] transicaoVazia ,  String mapeamentoEntrada ) {
+        IOValidator validator = new IOValidator();
+        this.aceitacao = validator.convertArrayCharToArrayInt(aceitacao);
+        this.transicao = validator.convertMatrizCharToInt(transicao);
+        this.transicaoVazia = validator.convertMatrizCharToInt(transicaoVazia);
+        this.mapeamentoEntrada = mapeamentoEntrada;
+        this.estadoInicial = estadoInicial;
+    }
 
+    /**
+     *  Construtor para automato nao deterministico
+     *  este nao possui transição espontanea
+     * @param aceitacao
+     * @param estadoInicial
+     * @param transicao
+     * @param mapeamentoEntrada
+     */
+    public ENFA(char[] aceitacao, char estadoInicial, char [][][] transicao, String mapeamentoEntrada ) {
+        IOValidator validator = new IOValidator();
+        this.aceitacao = validator.convertArrayCharToArrayInt(aceitacao);
+        this.transicao = validator.convertMatrizCharToInt(transicao);
+        this.mapeamentoEntrada = mapeamentoEntrada;
+        this.estadoInicial = estadoInicial;
+    }
+
+    private int[] leitura(String entrada) throws IsNotBelongOnLanguage {
         int posicao = 0;
         int[] estados = eclose(new int[]{estadoInicial});
         while (posicao < entrada.length()) {
-            if (debug) {
-                imprimeCI(entrada, estados, posicao);
-            }
+            if (debug) imprimeCI(entrada, estados, posicao);
+
             String elemento = entrada.substring(posicao, posicao + 1);
 
-            int[] novosEstados = new int[]{};
-            for (int i : estados) {
-                int iElemento = mapeamentoEntrada.indexOf(elemento);
-                if (iElemento == -1) {
-                    return false;
-                }
-                int[] destinoTransicao = transicao[i][iElemento];
-
-                novosEstados = uniao(novosEstados, destinoTransicao);
-                novosEstados = eclose(novosEstados);
-            }
-            estados = novosEstados;
+            estados = controleFinito(estados, elemento);
             if (estados.length == 0) {
                 break;
             }
@@ -54,6 +82,33 @@ public class ENFA {
         if (debug) {
             imprimeCI(entrada, estados, posicao);
         }
+        return estados;
+    }
+
+
+    private int [] controleFinito(int [] estados, String elemento) throws IsNotBelongOnLanguage {
+        int[] novosEstados = new int[]{};
+        for (int i : estados) {
+            int iElemento = mapeamentoEntrada.indexOf(elemento);
+            if (iElemento == -1) {
+                throw new IsNotBelongOnLanguage( "elemento:{" + elemento + "} Nao pertence ao alfabeto" );
+            }
+            int[] destinoTransicao = transicao[i][iElemento];
+            novosEstados = uniao(novosEstados, destinoTransicao);
+            novosEstados = eclose(novosEstados);
+        }
+        estados = novosEstados;
+        return estados;
+    }
+
+
+    /** A aplicação é executada a partir da entrada podendo dar a exception da entrada nao pertencer ao alfabeto
+     * @param entrada
+     * @return
+     * @throws IsNotBelongOnLanguage
+     */
+    public boolean executar(String entrada) throws IsNotBelongOnLanguage {
+        int [] estados = leitura(entrada);
         if (aceita(estados)) {
             return true;
         } else {
@@ -88,6 +143,7 @@ public class ENFA {
         return ret;
     }
 
+
     private boolean aceita(int[] estados) {
         for (int i : estados) {
             for (int j : aceitacao) {
@@ -110,5 +166,10 @@ public class ENFA {
         System.out.println("}" + entrada.substring(posicao));
     }
 
-
+    /** Parametro para mostrar os estados executados a aplicação
+     * @param debug
+     */
+    public void  setDebug(boolean debug){
+        this.debug = debug;
+    }
 }
