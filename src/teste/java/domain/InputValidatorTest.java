@@ -1,5 +1,6 @@
 package teste.java.domain;
 
+import main.java.domain.ENFA;
 import main.java.exceptions.InvalidFormatException;
 import main.java.utils.IOValidator;
 import org.junit.Test;
@@ -12,6 +13,20 @@ public class InputValidatorTest {
     String  entrada = "011012";
     String[] alfabeto = {"0", "1", "2"};
     assertEquals("Deve retornar true para  ser uma entrada valida, baseada no alfabeto", true, IOValidator.input(entrada, alfabeto));
+  }
+
+  @Test
+  /// Automato base https://ibb.co/dKMfc1H
+  public void shouldBeConvertMatrizCharToInt()   {
+    char [][][]  tabelaTransicao ={
+      //alf|estados  a     b       c     d     e    f    g    h
+      /*q1*/      {{'1','1','2', '1', '2', '5'},{'0'}, {'1'}, {'1'}},
+      /*q2*/      {{'1'},{'2'} , {'3'}, {'3'}, { '4'}, { '4'}, { '4'}},
+      /*q3*/      {{'1'},{'2'} , {'3'}, {'3'}, { '4'}, { '4'}, { '4'}},
+      /*q4*/      {{'1'},{'2'} , {'3'}, {'3'}, { '4'}, { '4'}, { '4'}},
+      /*q5*/      {{'1'},{'2'} , {'3'}, {'3'}, { '4'}, { '4'}, { '4'}},};
+    IOValidator test = new IOValidator();
+    int [][][]  tabelaTransicaoInt = test.convertMatriz3DCharToInt(tabelaTransicao, true);
   }
 
 }
