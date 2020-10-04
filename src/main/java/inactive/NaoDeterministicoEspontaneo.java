@@ -29,10 +29,13 @@ public class NaoDeterministicoEspontaneo {
 
     while(posicao < entrada.length()){
       imprimeCI(entrada, estados, posicao);
-      int elemento = Integer.parseInt(entrada.substring(posicao, posicao +1 ));
+//      String elemento = entrada.substring(posicao, posicao + 1);
+        int elemento = Integer.parseInt(entrada.substring(posicao, posicao +1 ));
 
       int[] novosEstados = new int[]{};
       for (int i: estados){
+
+//        if()
         if(elemento == -1){
           return false;
         }
@@ -59,11 +62,8 @@ public class NaoDeterministicoEspontaneo {
 
   private int[] eclose(int[] estados) {
     int[] eclosevec = estados;
-    System.out.println("Eclose novamente");
     for(int i : estados){
-      System.out.println(transicaoVazia[i]);
       int [] ecloseAux= transicaoVazia[i];
-
       int [] ecloseAux2 =eclose(ecloseAux);
       eclosevec = uniao(eclosevec, ecloseAux);
       eclosevec = uniao(eclosevec, ecloseAux2);
@@ -72,16 +72,12 @@ public class NaoDeterministicoEspontaneo {
   }
 
   private int[] uniao(int[] estados, int[] novosEstados) {
-    Set<Integer> uniao = new TreeSet<>();
-    System.out.println("Uniao");
-
+    Set<Integer> uniao = new TreeSet<Integer>();
     for (int i: estados) {
       uniao.add(i);
     }
     for(int i: novosEstados) {
       uniao.add(i);
-      System.out.println(uniao);
-
     }
 
     int[] ret = new int[uniao.size()];
@@ -90,7 +86,6 @@ public class NaoDeterministicoEspontaneo {
     for(int  i: uniao) {
       ret[j++] = i;
     }
-
     return ret;
   }
 

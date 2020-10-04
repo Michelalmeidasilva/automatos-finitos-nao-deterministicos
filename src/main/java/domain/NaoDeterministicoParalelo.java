@@ -1,23 +1,31 @@
 package main.java.domain;
 
 import main.java.exceptions.IsNotBelongOnLanguage;
+import main.java.utils.IOValidator;
 
 import java.util.Set;
 import java.util.TreeSet;
 
+/// tem-se um autômato finito não determinístico (AFN), se cada par (estado, simbolo) é uma transição para um ou mais estados de transição
 public class NaoDeterministicoParalelo {
   private String  fitaDeEntrada;               //  Σ é um alfabeto (de símbolos) de entrada
   private int estadoInicial ;                  //  q0 é um elemento distinguido de Q: estado inicial
   private int aceitacao[];
   private int [][][] transicao  ;
   private boolean debug;
+  public int posicaoAtual = 0;
 
   public NaoDeterministicoParalelo(int [][][] transicao, int[] estadosAceitacao, int estadoInicial ){
     this.aceitacao = estadosAceitacao;
     this.estadoInicial = estadoInicial  ;
     this.transicao = transicao;
   };
-
+  public NaoDeterministicoParalelo(char [][][] transicao, char[] estadosAceitacao, char estadoInicial ){
+    IOValidator validator = new IOValidator();
+    this.aceitacao = validator.convertArrayCharToArrayInt(estadosAceitacao);
+    this.estadoInicial = estadoInicial;
+    this.transicao = validator.convertMatriz3DCharToInt(transicao, debug) ;
+  };
   public NaoDeterministicoParalelo(int [][][] transicao, int[] estadosAceitacao ){
     this.aceitacao = estadosAceitacao;
     this.estadoInicial = 0 ;
@@ -39,18 +47,28 @@ public class NaoDeterministicoParalelo {
   }
 
   public int[] leitura(){
-    int posicaoAtual = 0;
+    posicaoAtual = 0;
     int [] estados = {estadoInicial};
+
+    if(debug)   imprimeCI(fitaDeEntrada, estados, posicaoAtual );
+
     while(posicaoAtual < fitaDeEntrada.length()){
-      if(debug)
-        imprimeCI(fitaDeEntrada, estados, posicaoAtual);
-      int elemento = Integer.parseInt(fitaDeEntrada.substring(posicaoAtual, posicaoAtual +1 ));
+      int elemento  = -1;
+
+      try {
+        elemento = Integer.parseInt(fitaDeEntrada.substring(posicaoAtual, posicaoAtual +1 ));
+      }catch  (NumberFormatException e){
+        elemento = fitaDeEntrada.charAt(posicaoAtual) - 96;
+        System.out.println(elemento);
+      }
+
       estados = controleFinito(estados, elemento);
       posicaoAtual ++;
+      if(debug) {
+        System.out.print(" elemento " + elemento + ":  ");
+        imprimeCI(fitaDeEntrada, estados, posicaoAtual );
+      }
     }
-    int posicaoFinal = posicaoAtual;
-    if(debug)
-      imprimeCI(fitaDeEntrada, estados, posicaoFinal);
     return estados;
   }
 
@@ -59,14 +77,12 @@ public class NaoDeterministicoParalelo {
     for (int i: estados){
       int [] destinoTransicao = transicao[i][elemento];
       novosEstados = uniao(novosEstados, destinoTransicao);
-      for (int j = 0; j < novosEstados.length; j++) {
-        System.out.print(" " + novosEstados[j] + " ");
-      }
-      System.out.println();
       estados = novosEstados;
     }
+
     if(estados.length == 0 )
       return null;
+
     return estados;
   }
 
@@ -77,11 +93,12 @@ public class NaoDeterministicoParalelo {
     int[] ret = new int[uniao.size()];
     int j =0 ;
     for(int i: uniao) ret[j++]   = i;
+
     return ret;
   }
 
   private void imprimeCI(String entrada,int []estado,  int posicao) {
-    System.out.print(entrada.substring(0, posicao) +  "[");
+    System.out.print(entrada.substring(0, posicao) + "[");
     for (int i = 0; i<  estado.length; i ++){
       System.out.print("q"+ estado[i] );
       if (i < estado.length - 1)  System.out.print(",");
