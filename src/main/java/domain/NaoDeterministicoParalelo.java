@@ -15,12 +15,12 @@ public class NaoDeterministicoParalelo {
     this.transicao = transicao;
   };
 
-  public void execucao(String fitaDeEntrada){
+  public boolean execucao(String fitaDeEntrada){
     this.fitaDeEntrada = fitaDeEntrada;
-    controleFinito();
+    return controleFinito();
   }
 
-  private void controleFinito(){
+  private boolean controleFinito(){
     String entrada = fitaDeEntrada;
     int posicao =0 ;
     int [] estados ={estadoInicial};
@@ -41,11 +41,11 @@ public class NaoDeterministicoParalelo {
     }
     imprimeCI(entrada, estados, posicao);
 
-    if(aceita(estados)){
-      System.out.println("aceita");
-    }else {
-      System.out.println("rejeita");
-    }
+    if(aceita(estados))
+      return true;
+    else
+      return false;
+
   }
 
   private int[] uniao(int[] estados, int[] novosEstados) {
