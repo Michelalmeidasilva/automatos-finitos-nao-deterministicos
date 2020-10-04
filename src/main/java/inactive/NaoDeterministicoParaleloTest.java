@@ -1,8 +1,6 @@
 package teste.java.domain;
 
-import main.java.domain.NaoDeterministicoParalelo;
-import main.java.exceptions.IsNotBelongOnLanguage;
-import main.java.utils.IOValidator;
+import main.java.inactive.NaoDeterministicoParalelo;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -20,8 +18,9 @@ public class NaoDeterministicoParaleloTest {
       /*q3*/               {{3}, {3}}};
     int estadosAceitacao[] = {3};
     int estadoInicial = 0;
+    String alfabeto = "01";
     String  fitaDeEntrada = "010";
-    NaoDeterministicoParalelo afnd = new NaoDeterministicoParalelo(tabelaTransicao, estadosAceitacao,estadoInicial);
+    NaoDeterministicoParalelo afnd = new NaoDeterministicoParalelo(tabelaTransicao, estadosAceitacao,estadoInicial, alfabeto);
       assertEquals("Deve retornar false para  ser uma palavra invalida, ou seja, não pertence ao automato", false,  afnd.execucao(fitaDeEntrada, true));
   }
 
@@ -39,8 +38,9 @@ public class NaoDeterministicoParaleloTest {
       /*q3*/               {{'3'}, {'3'}}};
     char estadosAceitacao[] = {'0', '1'};
     char estadoInicial  =0;
+    String alfabeto = "0123";
     String  fitaDeEntrada = "0001a";
-    NaoDeterministicoParalelo afnd = new NaoDeterministicoParalelo(tabelaTransicao, estadosAceitacao, estadoInicial);
+    NaoDeterministicoParalelo afnd = new NaoDeterministicoParalelo(tabelaTransicao, estadosAceitacao, estadoInicial, alfabeto);
     assertEquals("Deve retornar true para  ser uma palavra valida, logo pertence ao automato", true,  afnd.execucao(fitaDeEntrada, true));
 
   }
@@ -58,7 +58,8 @@ public class NaoDeterministicoParaleloTest {
     int estadosAceitacao[] = {3};
     int estadoInicial = 0;
     String  fitaDeEntrada = "000";
-    NaoDeterministicoParalelo afnd = new NaoDeterministicoParalelo(tabelaTransicao, estadosAceitacao, estadoInicial);
+    String alfabeto = "01";
+    NaoDeterministicoParalelo afnd = new NaoDeterministicoParalelo(tabelaTransicao, estadosAceitacao, estadoInicial, alfabeto);
     assertEquals("Deve retornar false para  ser uma palavra invalida, logo pertence ao automato", true,  afnd.execucao(fitaDeEntrada, true));
   }
 }

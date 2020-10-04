@@ -172,4 +172,11 @@ public class ENFA {
     public void  setDebug(boolean debug){
         this.debug = debug;
     }
+
+    /**Metodo para converter um automato finito nao deterministico para um automato deterministico
+     * @param enfa
+     */
+    public void convertToDfa(ENFA enfa){
+
+    }
 }
