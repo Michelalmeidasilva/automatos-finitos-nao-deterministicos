@@ -1,10 +1,10 @@
 # Automatos-Finitos-Nao-Deterministicos
 
-## Como rodar o projeto
+## Iniciando
 
 ### Dependencias de Pacotes:
 
-
+## Como rodar o projeto
 
 ### NetBeans
 
