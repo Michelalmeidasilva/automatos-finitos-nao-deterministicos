@@ -1,6 +1,5 @@
 package teste.java.domain;
 
-import main.java.domain.ENFA;
 import main.java.exceptions.InvalidFormatException;
 import main.java.utils.IOValidator;
 import org.junit.Test;
@@ -26,7 +25,18 @@ public class InputValidatorTest {
       /*q4*/      {{'1'},{'2'} , {'3'}, {'3'}, { '4'}, { '4'}, { '4'}},
       /*q5*/      {{'1'},{'2'} , {'3'}, {'3'}, { '4'}, { '4'}, { '4'}},};
     IOValidator test = new IOValidator();
-    int [][][]  tabelaTransicaoInt = test.convertMatriz3DCharToInt(tabelaTransicao, true);
+    int [][][]  tabelaTransicaoInt = test.convertMatrizCharToInt(tabelaTransicao, true);
   }
 
+  @Test
+  /// Automato base https://ibb.co/dKMfc1H
+  public void shouldBeConvertArrayCharToInt(){
+    char []  tabelaTransicao =
+       {'1','1','2', '1', '2', '5'};
+    IOValidator test = new IOValidator();
+    int []  tabelaTransicaoInt = test.convertArrayCharToArrayInt(tabelaTransicao);
+    for ( int i: tabelaTransicaoInt) {
+      System.out.println(tabelaTransicaoInt[i]);
+    }
+  }
 }
