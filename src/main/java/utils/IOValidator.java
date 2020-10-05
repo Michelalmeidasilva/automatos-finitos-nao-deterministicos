@@ -1,6 +1,6 @@
-package main.java.utils;
+package utils;
 
-import main.java.exceptions.InvalidFormatException;
+import exceptions.InvalidFormatException;
 
 public class IOValidator {
   private  boolean debug;
@@ -8,6 +8,12 @@ public class IOValidator {
   private int coluna = 0;
   private int  profundidade = 0 ;
 
+  /**
+   * @param fitaDeEntrada
+   * @param alfabeto
+   * @return
+   * @throws InvalidFormatException
+   */
   public  static boolean input(String fitaDeEntrada, String[] alfabeto) throws InvalidFormatException {
     boolean validar = false;
     for (int i = 0; i < fitaDeEntrada.length(); i ++) {
@@ -23,8 +29,12 @@ public class IOValidator {
     return validar;
   }
 
-  public  int [][][] convertMatriz3DCharToInt(char[][][] matriz){
-    sizeOfMatriz3D(matriz);
+  /**
+   * @param matriz
+   * @return
+   */
+  public  int [][][] convertMatrizCharToInt(char[][][] matriz){
+    sizeOfMatriz(matriz);
     int [][][] tabelaTransicaoInt  = new int[linha][coluna][profundidade];
     for (int i = 0; i < matriz.length; i ++){
       for (int j = 0 ; j < matriz[i].length; j ++){
@@ -37,7 +47,23 @@ public class IOValidator {
     return tabelaTransicaoInt;
   }
 
-  private  void sizeOfMatriz3D(char [][][] matriz) {
+  /**
+   * @param matriz
+   * @return
+   */
+  public  int [][] convertMatrizCharToInt(char[][] matriz){
+    sizeOfMatriz(matriz);
+    int [][] tabelaTransicaoInt  = new int[linha][coluna];
+    for (int i = 0; i < matriz.length; i ++){
+      for (int j = 0 ; j < matriz[i].length; j ++){
+        tabelaTransicaoInt[i][j] = Integer.parseInt( matriz[i][j] + "");
+        if(debug) System.out.println(tabelaTransicaoInt[i][j]);
+      }
+    }
+    return tabelaTransicaoInt;
+  }
+
+  private  void sizeOfMatriz(char [][][] matriz) {
     this.linha = matriz.length  ;
     this.coluna = 0;
     this.profundidade = 0 ;
@@ -54,11 +80,38 @@ public class IOValidator {
     }
   }
 
-  public  int [][][] convertMatriz3DCharToInt(char[][][] matriz,boolean debug) {
-    this.debug = debug;
-    return  convertMatriz3DCharToInt(matriz);
+  private  void sizeOfMatriz(char [][] matriz) {
+    this.linha = matriz.length  ;
+    this.coluna = 0;
+    for (int i = 0; i < matriz.length; i ++){
+      this.coluna = matriz[i].length > coluna ? matriz[i].length : coluna;
+    }
   }
 
+  /**
+   * @param matriz
+   * @param debug
+   * @return
+   */
+  public  int [][][] convertMatrizCharToInt(char[][][] matriz,boolean debug) {
+    this.debug = debug;
+    return  convertMatrizCharToInt(matriz);
+  }
+
+  /**
+   * @param matriz
+   * @param debug
+   * @return
+   */
+  public  int [][] convertMatrizCharToInt(char[][] matriz,boolean debug) {
+    this.debug = debug;
+    return  convertMatrizCharToInt(matriz);
+  }
+
+  /**
+   * @param array
+   * @return
+   */
   public  int [] convertArrayCharToArrayInt(char[] array) {
     int [] arrayInt = new int[array.length];
     for (int i = 0; i < array.length; i++) {

@@ -1,4 +1,4 @@
-package main.java.exceptions;
+package exceptions;
 
 public class IsNotBelongOnLanguage extends Exception{
   public IsNotBelongOnLanguage(String message) {
