@@ -1,8 +1,6 @@
-package teste.java.domain;
-
-import main.java.exceptions.InvalidFormatException;
-import main.java.utils.IOValidator;
+import exceptions.InvalidFormatException;
 import org.junit.Test;
+import utils.IOValidator;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,7 +13,6 @@ public class InputValidatorTest {
   }
 
   @Test
-  /// Automato base https://ibb.co/dKMfc1H
   public void shouldBeConvertMatrizCharToInt()   {
     char [][][]  tabelaTransicao ={
       //alf|estados  a     b       c     d     e    f    g    h
@@ -29,7 +26,6 @@ public class InputValidatorTest {
   }
 
   @Test
-  /// Automato base https://ibb.co/dKMfc1H
   public void shouldBeConvertArrayCharToInt(){
     char []  tabelaTransicao =
        {'1','1','2', '1', '2', '5'};

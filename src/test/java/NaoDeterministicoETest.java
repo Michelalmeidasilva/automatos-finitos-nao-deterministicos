@@ -1,14 +1,13 @@
-package teste.java.domain;
-
-import main.java.domain.NaoDeterministicoE;
-import main.java.exceptions.IsNotBelongOnLanguage;
+import domain.NaoDeterministicoE;
+import exceptions.IsNotBelongOnLanguage;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class NaoDeterministicoETest {
+
   @Test
-  public void shouldBeCorrectInputEnfa() throws IsNotBelongOnLanguage   {
+  public void shouldBeCorrectInputEnfa() throws IsNotBelongOnLanguage {
     String  entrada = "02020101aaaaa";
     String alfabeto = "012a";
     int [][][]  transicao =
