@@ -16,13 +16,15 @@ public class InputValidatorTest {
   public void shouldBeConvertMatrizCharToInt()   {
     char [][][]  tabelaTransicao ={
       //alf|estados  a     b       c     d     e    f    g    h
-      /*q1*/      {{'1','1','2', '1', '2', '5'},{'0'}, {'1'}, {'1'}},
+      /*q1*/      {{'1','1','2', '1', '2','5'},{'0'}, {'1'}, {'1'}},
       /*q2*/      {{'1'},{'2'} , {'3'}, {'3'}, { '4'}, { '4'}, { '4'}},
       /*q3*/      {{'1'},{'2'} , {'3'}, {'3'}, { '4'}, { '4'}, { '4'}},
       /*q4*/      {{'1'},{'2'} , {'3'}, {'3'}, { '4'}, { '4'}, { '4'}},
       /*q5*/      {{'1'},{'2'} , {'3'}, {'3'}, { '4'}, { '4'}, { '4'}},};
     IOValidator test = new IOValidator();
     int [][][]  tabelaTransicaoInt = test.convertMatrizCharToInt(tabelaTransicao, true);
+    tabelaTransicaoInt = null;
+    assertEquals("Deve passar uma matriz 3Dimensoes como char e retornar uma matriz em matriz",  true, tabelaTransicaoInt != null ? true : false);
   }
 
   @Test
