@@ -9,7 +9,7 @@ public class Automato {
   protected String alfabeto;
   protected String fitaDeEntrada;
 
-  public Automato(int[] aceitacao, int estadoInicial, int[][][] transicao, int[][] transicaoVazia, String alfabeto) {
+  protected Automato(int[] aceitacao, int estadoInicial, int[][][] transicao, int[][] transicaoVazia, String alfabeto) {
     System.out.println(estadoInicial);
     this.aceitacao = aceitacao;
     this.estadoInicial = estadoInicial;
@@ -18,13 +18,14 @@ public class Automato {
     this.transicao = transicao;
   }
 
-  public Automato(int[] aceitacao, int estadoInicial, int[][][] transicao, String alfabeto) {
+  protected Automato(int[] aceitacao, int estadoInicial, int[][][] transicao, String alfabeto) {
     this.aceitacao = aceitacao;
     this.transicao = transicao;
     this.alfabeto = alfabeto;
     this.estadoInicial = estadoInicial;
   }
 
+  public Automato(){}
   public void setDebug(boolean debug) {
     this.debug = debug;
   }
