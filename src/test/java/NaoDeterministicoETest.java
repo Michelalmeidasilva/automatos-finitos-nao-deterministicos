@@ -47,7 +47,7 @@ public class NaoDeterministicoETest {
     int estadoInicial = 0;
     NaoDeterministicoE naoDeterministicoE = new NaoDeterministicoE(aceitacao,estadoInicial,  transicao, transicaoVazia, alfabeto);
     naoDeterministicoE.setDebug(true);
-    assertEquals("Deve retornar true para  ser uma entrada valida, baseada no automato", true, naoDeterministicoE.executar(entrada));
+    assertEquals("Deve retornar true para  ser uma Palavra valida, baseada no automato", true, naoDeterministicoE.executar(entrada));
 
   }
 
@@ -66,7 +66,7 @@ public class NaoDeterministicoETest {
     String  entrada = "aaaa";
     NaoDeterministicoE naoDeterministicoE = new NaoDeterministicoE( aceitacao, estadoInicial , transicao, transicaoVazia, alfabeto);
     naoDeterministicoE.setDebug(true);
-    assertEquals("Deve retornar true para  ser uma entrada valida, baseada no automato", true, naoDeterministicoE.executar(entrada));
+    assertEquals("Deve retornar true para  ser uma Palavra valida, baseada no automato", true, naoDeterministicoE.executar(entrada));
 
   }
 
@@ -84,7 +84,7 @@ public class NaoDeterministicoETest {
          /*q7*/     {{}, {},  {},   {4},    {4},     {4},   {4},     {4},    {4},    {4}    ,{4}   ,{4}   ,{4}},
          /*q8*/     {{}, {},  {},   {9},    {9},     {9},   {9},     {9},    {9},    {9}    ,{9}   ,{9}   ,{9}},
          /*q9*/     {{}, {},  {},   {9},    {9},     {9},   {9},     {9},    {9},    {9}    ,{9}   ,{9}   ,{9}}};
-    String  entrada = "55";
+    String  entrada = "5000000005";
     //transições espontaneas    0   1    2   3   4   5  6   7   8   9   10  11  12
     int [][] transicaoVazia = {{1}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}};
     int aceitacao[] = {4,9};
@@ -92,7 +92,7 @@ public class NaoDeterministicoETest {
     String alfabeto = "+-.0123456789";
     NaoDeterministicoE naoDeterministicoE = new NaoDeterministicoE(aceitacao,estadoInicial, transicao,  transicaoVazia, alfabeto);
     naoDeterministicoE.setDebug(true);
-    assertEquals("Deve retornar true para  ser uma entrada valida, baseada no automato", true, naoDeterministicoE.executar(entrada));
+    assertEquals("Deve retornar true para  ser uma Palavra aceita, baseada no automato", true, naoDeterministicoE.executar(entrada));
 
   }
 
