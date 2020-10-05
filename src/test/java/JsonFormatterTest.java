@@ -11,7 +11,7 @@ public class JsonFormatterTest {
     String  entrada = "02020101aaaaa";
     String alfabeto = "012a";
     int [][][]  transicao =
-       {{{1},   {},    {},  {}},
+        {{{1},   {},    {},  {}},
         {{},    {1},   {1}, {1}},
         {{},    {},    {}}, {}} ;
     //estado 0 transição espontanea nao existe

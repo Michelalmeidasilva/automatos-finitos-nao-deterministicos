@@ -25,24 +25,25 @@ public class JsonFormatter {
    * @param automato
    */
   public void writeObject(Automato automato) {
+    String userDirectory =  System.getProperty("user.dir") + "/";
+    String nomeDoArquivo = "afnd.json";
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     String json = gson.toJson(automato);
-    try (FileWriter writer = new FileWriter("/home/michel/IdeaProjects/NonDeterministics/AFND.json")) {
+    try (FileWriter writer = new FileWriter(userDirectory + nomeDoArquivo)) {
       gson.toJson(automato, writer);
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  /**
-   *
-   */
   public Automato readJson() {
+    String userDirectory =  System.getProperty("user.dir") + "/";
+    String nomeDoArquivo = "afnd.json";
     Gson gson = new Gson();
-    try (Reader reader = new FileReader("/home/michel/IdeaProjects/NonDeterministics/AFND.json")) {
+    System.out.println(System.getProperty("user.dir"));
+    try (Reader reader = new FileReader(userDirectory + nomeDoArquivo )) {
       // Convert JSON File to Java Object
       Automato automato = gson.fromJson(reader, Automato.class);
-      System.out.println(automato.getEstadoInicial());
       return automato;
     } catch (IOException e) {
       e.printStackTrace();
