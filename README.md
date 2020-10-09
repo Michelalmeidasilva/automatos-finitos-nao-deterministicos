@@ -9,10 +9,6 @@
 3. Download [Gson] (https://search.maven.org/remotecontent?filepath=com/google/code/gson/gson/2.8.6/gson-2.8.6.jar)
 4. Importe na pasta de libraries do seu projeto os pacotes .jar do Gson-2.8.6 e o Junit 4.1.3
 
-## Como rodar o projeto
-
-
-
 ## Estrutura de Pastas
 
 ```
@@ -25,10 +21,6 @@
     ├── /java
 ```
 
-
-
-
-### Sem IDEA
 
 
 
