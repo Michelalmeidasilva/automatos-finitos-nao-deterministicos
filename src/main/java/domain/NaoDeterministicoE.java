@@ -14,10 +14,10 @@ public class NaoDeterministicoE extends Automato {
      * @param estadoInicial
      * @param transicao
      * @param transicaoVazia
-     * @param mapeamentoEntrada
+     * @param alfabeto
      */
-    public NaoDeterministicoE(int[] aceitacao, int estadoInicial, int [][][] transicao, int [][] transicaoVazia , String mapeamentoEntrada ) {
-        super(aceitacao, estadoInicial, transicao, transicaoVazia, mapeamentoEntrada);
+    public NaoDeterministicoE(int[] aceitacao, int estadoInicial, int [][][] transicao, int [][] transicaoVazia , String alfabeto ) {
+        super(aceitacao, estadoInicial, transicao, transicaoVazia, alfabeto);
     }
 
     /**
@@ -26,10 +26,10 @@ public class NaoDeterministicoE extends Automato {
      * @param estadoInicial
      * @param transicao
      * @param transicaoVazia
-     * @param mapeamentoEntrada
+     * @param alfabeto
      */
-    public NaoDeterministicoE(char[] aceitacao, char estadoInicial, char [][][] transicao, char [][] transicaoVazia , String mapeamentoEntrada ) {
-        super(validator.convertArrayCharToArrayInt(aceitacao), estadoInicial,  validator.convertMatrizCharToInt(transicao), validator.convertMatrizCharToInt(transicaoVazia), mapeamentoEntrada);
+    public NaoDeterministicoE(char[] aceitacao, char estadoInicial, char [][][] transicao, char [][] transicaoVazia , String alfabeto ) {
+        super(validator.convertArrayCharToArrayInt(aceitacao), estadoInicial,  validator.convertMatrizCharToInt(transicao), validator.convertMatrizCharToInt(transicaoVazia), alfabeto);
     }
 
     /**
@@ -38,11 +38,25 @@ public class NaoDeterministicoE extends Automato {
      * @param aceitacao
      * @param estadoInicial
      * @param transicao
-     * @param mapeamentoEntrada
+     * @param alfabeto
      */
-    public NaoDeterministicoE(int[] aceitacao, int estadoInicial, int [][][] transicao, String mapeamentoEntrada ) {
-        super(aceitacao, estadoInicial, transicao, mapeamentoEntrada);
+    public NaoDeterministicoE(int[] aceitacao, int estadoInicial, int [][][] transicao, String alfabeto ) {
+        super(aceitacao, estadoInicial, transicao, alfabeto);
         IOValidator validator = new IOValidator();
+    }
+
+    /** A aplicação é executada a partir da entrada podendo dar a exception da entrada nao pertencer ao alfabeto
+     * @param entrada
+     * @return
+     * @throws IsNotBelongOnLanguage
+     */
+    public boolean executar(String entrada) throws IsNotBelongOnLanguage {
+        int [] estados = leitura(entrada);
+        if (aceita(estados)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private int[] leitura(String entrada) throws IsNotBelongOnLanguage {
@@ -67,29 +81,17 @@ public class NaoDeterministicoE extends Automato {
         int[] novosEstados = new int[]{};
         for (int i : estados) {
             int iElemento = alfabeto.indexOf(elemento);
-            if (iElemento == -1) {
+            if (iElemento == -1)
                 throw new IsNotBelongOnLanguage( "elemento:{" + elemento + "} Nao pertence ao alfabeto" );
-            }
+
             int[] destinoTransicao = transicao[i][iElemento];
             novosEstados = uniao(novosEstados, destinoTransicao);
             novosEstados = eclose(novosEstados);
+
         }
+
         estados = novosEstados;
         return estados;
-    }
-
-    /** A aplicação é executada a partir da entrada podendo dar a exception da entrada nao pertencer ao alfabeto
-     * @param entrada
-     * @return
-     * @throws IsNotBelongOnLanguage
-     */
-    public boolean executar(String entrada) throws IsNotBelongOnLanguage {
-        int [] estados = leitura(entrada);
-        if (aceita(estados)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     private int[] eclose(int[] estados) {
