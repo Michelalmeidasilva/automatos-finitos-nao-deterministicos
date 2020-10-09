@@ -1,6 +1,6 @@
 # Sprint 1 Automatos Finitos Nao Deterministicos pelo grupo 1
 
-# Iniciando
+## Iniciando
 
 ## Instalação
 
