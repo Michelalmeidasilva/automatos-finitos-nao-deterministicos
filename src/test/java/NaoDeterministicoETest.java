@@ -8,7 +8,7 @@ public class NaoDeterministicoETest {
 
   @Test
   public void shouldBeCorrectInputEnfa() throws IsNotBelongOnLanguage {
-    String  entrada = "02020101aaaaa";
+    String entrada = "02020101aaaaa";
     String alfabeto = "012a";
     int [][][]  transicao =
        {{{1},   {},    {},  {}},
@@ -54,46 +54,21 @@ public class NaoDeterministicoETest {
   @Test
   public void shouldBeCorrectAlgorithmENFA() throws IsNotBelongOnLanguage {
     //alfabeto por coluna
-    //estados por linha 0  1  2
+    //estados por linha a  b  c
     int [][][]  transicao =   {
       {{1},{},{}},
       {{1}, {2},{2}},
-      {{}, {},{}}};
+      {{0}, {0},{0}}};
     int [][] transicaoVazia = {{}, {}, {}};
     int estadoInicial = 0;
     int aceitacao[] = {1};
     String alfabeto = "abc";
-    String  entrada = "aaaa";
+    String  entrada = "aaaaaaaaaacaa";
     NaoDeterministicoE naoDeterministicoE = new NaoDeterministicoE( aceitacao, estadoInicial , transicao, transicaoVazia, alfabeto);
     naoDeterministicoE.setDebug(true);
     assertEquals("Deve retornar true para  ser uma Palavra valida, baseada no automato", true, naoDeterministicoE.executar(entrada));
 
   }
 
-  @Test
-  public void shouldBeCorrectAlgorithmENFADecimals() throws IsNotBelongOnLanguage {
-    int [][][] transicao = {
-//estados|alfabeto   +   -    .     0       1        2      3         4       5       6      7      8      9
-          /*q0*/    {{1},{1}, {},   {},     {},      {}   , {},      {},     {},     {}     ,{}    ,{}    ,{}},
-          /*q1*/    {{}, {},  {},   {2,4},  {1,4},   {1,4}, {1,4},   {1,4},  {1,4},  {1,4}  ,{1,4} ,{1,4} ,{1,4}},
-          /*q2*/    {{}, {},  {},   {3,4},  {3},     {3},   {3},     {3},    {3},    {3}    ,{3}   ,{3}   ,{3}},
-          /*q3*/    {{}, {},  {},   {4},    {3},     {3},   {3},     {3},    {3},    {3}    ,{3}   ,{3}   ,{3}},
-         /*q4*/     {{}, {},  {8},  {},     {},      {},    {},      {},     {},     {}     ,{}    ,{}    ,{}},
-         /*q5*/     {{}, {},  {},   {6},    {6},     {6},   {6},     {6},    {6},    {6}    ,{6}   ,{6}   ,{6}},
-         /*q6*/     {{}, {},  {},   {7},    {7},     {7},   {7},     {7},    {7},    {7}    ,{7}   ,{7}   ,{7}},
-         /*q7*/     {{}, {},  {},   {4},    {4},     {4},   {4},     {4},    {4},    {4}    ,{4}   ,{4}   ,{4}},
-         /*q8*/     {{}, {},  {},   {9},    {9},     {9},   {9},     {9},    {9},    {9}    ,{9}   ,{9}   ,{9}},
-         /*q9*/     {{}, {},  {},   {9},    {9},     {9},   {9},     {9},    {9},    {9}    ,{9}   ,{9}   ,{9}}};
-    String  entrada = "5000000005";
-    //transições espontaneas    0   1    2   3   4   5  6   7   8   9   10  11  12
-    int [][] transicaoVazia = {{1}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}};
-    int aceitacao[] = {4,9};
-    int estadoInicial = 0;
-    String alfabeto = "+-.0123456789";
-    NaoDeterministicoE naoDeterministicoE = new NaoDeterministicoE(aceitacao,estadoInicial, transicao,  transicaoVazia, alfabeto);
-    naoDeterministicoE.setDebug(true);
-    assertEquals("Deve retornar true para  ser uma Palavra aceita, baseada no automato", true, naoDeterministicoE.executar(entrada));
-
-  }
 
 }
