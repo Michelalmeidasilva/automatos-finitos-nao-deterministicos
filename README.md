@@ -15,6 +15,7 @@
 
 ## Estrutura de Pastas
 
+```
 ├── /src
 |   ├── /domain
 |   ├── /exceptions
@@ -23,6 +24,8 @@
 ├── /test
     ├── /java
 ```
+
+
 
 
 ### Sem IDEA
