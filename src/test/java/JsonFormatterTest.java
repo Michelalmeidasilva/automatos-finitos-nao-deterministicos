@@ -1,5 +1,5 @@
 import domain.Automato;
-import domain.NaoDeterministicoE;
+import domain.NaoDeterministico;
 import org.junit.Test;
 import utils.JsonFormatter;
 
@@ -14,21 +14,16 @@ public class JsonFormatterTest {
         {{{1,0,1},   {},    {},  {}},
         {{},    {1},   {1}, {1}},
         {{},    {},    {}}, {}} ;
-
-
-    //estado 0 transição espontanea nao existe
-    //estado 1 transição espontanea vai pro 0
-    //estado 2 transição espontanea vai pro 0
-    int [][] transicaoVazia = {{}, {0}, {0}};
-
     int estadoInicial = 0;
     int aceitacao[] = {0};
-    NaoDeterministicoE naoDeterministicoE = new NaoDeterministicoE(aceitacao,estadoInicial, transicao,  transicaoVazia, alfabeto);
-    formatter.writeObject(naoDeterministicoE);
+    NaoDeterministico naoDeterministico = new NaoDeterministico(aceitacao,estadoInicial, transicao, alfabeto);
+    formatter.writeObject(naoDeterministico);
+    System.out.println("Aquivo preenchido");
   }
 
   @Test
   public void shouldBeRead() {
     Automato automato = formatter.readJson();
+    System.out.println(automato.toString());
   }
 }

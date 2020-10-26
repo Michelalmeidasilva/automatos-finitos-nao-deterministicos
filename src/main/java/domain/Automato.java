@@ -1,22 +1,14 @@
 package domain;
 
+import java.util.Arrays;
+
 public class Automato {
   protected boolean debug = false;
   protected int[] aceitacao;
-  protected int estadoInicial = 0;
+  protected int estadoInicial;
   protected int[][][] transicao;
-  protected int[][] transicaoVazia;
   protected String alfabeto;
   protected String fitaDeEntrada;
-
-  protected Automato(int[] aceitacao, int estadoInicial, int[][][] transicao, int[][] transicaoVazia, String alfabeto) {
-    System.out.println(estadoInicial);
-    this.aceitacao = aceitacao;
-    this.estadoInicial = estadoInicial;
-    this.transicaoVazia =transicaoVazia;
-    this.alfabeto = alfabeto;
-    this.transicao = transicao;
-  }
 
   protected Automato(int[] aceitacao, int estadoInicial, int[][][] transicao, String alfabeto) {
     this.aceitacao = aceitacao;
@@ -58,14 +50,6 @@ public class Automato {
     this.transicao = transicao;
   }
 
-  public int[][] getTransicaoVazia() {
-    return transicaoVazia;
-  }
-
-  public void setTransicaoVazia(int[][] transicaoVazia) {
-    this.transicaoVazia = transicaoVazia;
-  }
-
   public String getAlfabeto() {
     return alfabeto;
   }
@@ -83,13 +67,24 @@ public class Automato {
   }
 
   /**Metodo para converter um automato finito nao deterministico para um automato deterministico
-   * @param naoDeterministicoE
+   * @param naoDeterministico
    */
-  protected void convertToDfa(NaoDeterministicoE naoDeterministicoE){
+  protected void convertToDfa(NaoDeterministico naoDeterministico){
   }
 
   public Automato createObject(Automato automato) {
     return automato;
   }
 
+  @Override
+  public String toString() {
+    return "Automato{" +
+      "\ndebug=" + debug +
+      "\n, aceitacao=" + Arrays.toString(aceitacao) +
+      "\n, estadoInicial=" + estadoInicial +
+      "\n, transicao=" + Arrays.toString(transicao) +
+      "\n, alfabeto='" + alfabeto + '\'' +
+      "\n, fitaDeEntrada='" + fitaDeEntrada + '\'' +
+      '}';
+  }
 }

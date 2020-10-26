@@ -3,7 +3,7 @@ package utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import domain.Automato;
-import domain.NaoDeterministicoE;
+import domain.NaoDeterministico;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.io.Reader;
 
 public class JsonFormatter {
-  NaoDeterministicoE naoDeterministicoE;
+  NaoDeterministico naoDeterministico;
 
-  public JsonFormatter(NaoDeterministicoE naoDeterministicoE) {
-    this.naoDeterministicoE = naoDeterministicoE;
+  public JsonFormatter(NaoDeterministico naoDeterministico) {
+    this.naoDeterministico = naoDeterministico;
   }
 
   public JsonFormatter() {
