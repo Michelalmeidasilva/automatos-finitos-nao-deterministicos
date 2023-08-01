@@ -44,7 +44,3 @@ In this project, we aim to provide an NFA implementation that allows users to de
 Contributions to this project are highly encouraged. If you find any issues, want to add new features, or enhance the existing ones, feel free to create a pull request.
 
 Let's work together to make this project better!
-
-## License
-
-This project is licensed under the [MIT License](LICENSE). Feel free to use and modify it as per the terms of the license.
